@@ -1,12 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"net/http"
+
+	"github.com/callisto13/spinner/pkg/handlers"
+	"github.com/gorilla/mux"
+)
 
 func main() {
-	fmt.Println("starting")
-	for {
-		for i := 0; i < 100000000; i++ {
-		}
-	}
-	fmt.Println("stopped")
+	r := mux.NewRouter()
+	r.HandleFunc("/start", handlers.Start)
+	r.HandleFunc("/stop", handlers.Stop)
+
+	_ = http.ListenAndServe(":8080", r)
 }
